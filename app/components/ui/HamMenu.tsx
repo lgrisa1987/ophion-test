@@ -1,6 +1,6 @@
 'use client';
-import { useState } from 'react';
 import { cn } from '@/app/utils/';
+import { useAppContextProvider } from '../Context';
 
 const lines = [
   {
@@ -24,13 +24,13 @@ const lines = [
 ];
 
 export const HamMenu = () => {
-  const [activeMenu, setActiveMenu] = useState(false);
+  const { isDrawerOpen, setIsDrawerOpen } = useAppContextProvider();
   return (
     <button
       className='w-[2.25rem]'
-      onClick={() => setActiveMenu(!activeMenu)}
-      aria-label={`${activeMenu ? 'Colapsar' : 'Desplegar'} menu`}
-      aria-expanded={activeMenu}
+      onClick={() => setIsDrawerOpen(!isDrawerOpen)}
+      aria-label={`${isDrawerOpen ? 'Colapsar' : 'Desplegar'} menu`}
+      aria-expanded={isDrawerOpen}
     >
       <svg
         width='100'
@@ -40,7 +40,7 @@ export const HamMenu = () => {
         aria-hidden={true}
       >
         {lines.map(({ id, d, activeState, inactiveState }) => {
-          const activeClasses = activeMenu
+          const activeClasses = isDrawerOpen
             ? activeState + ' md:stroke-white'
             : inactiveState;
           return (

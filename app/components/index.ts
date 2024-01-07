@@ -5,3 +5,4 @@ export * from './ui/Title';
 export * from './Nav';
 export * from './Drawer';
 export * from './Hero';
+export * from './MainAnimationProvider';

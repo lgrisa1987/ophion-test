@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  @apply [--main-height:3.9375rem] md:[--main-height:6.3125rem];
+  @apply [--main-height:3.125rem] md:[--main-height:6.3125rem];
 }
 
 * {

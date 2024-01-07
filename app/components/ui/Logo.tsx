@@ -1,3 +1,5 @@
+import { cn } from '@/app/utils';
+
 type LogoProps = {
   svgStyles?: string;
   fill?: string;
@@ -14,7 +16,7 @@ export const Logo = ({
       height='40'
       viewBox='0 0 36 40'
       fill='none'
-      className={svgStyles}
+      className={`${cn('animate-spin [animation-duration:10s]', svgStyles)}`}
     >
       <path
         fillRule='evenodd'

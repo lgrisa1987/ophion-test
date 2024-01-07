@@ -20,6 +20,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwindcss-touch')()],
 };
 export default config;

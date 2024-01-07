@@ -1,5 +1,8 @@
 export const Drawer = () => {
   return (
-    <div className='w-full h-full fixed bg-bright-turquoise translate-x-full md:translate-x-[60%]'></div>
+    <div
+      className='w-full h-full fixed bg-bright-turquoise z-[9]'
+      id='drawer'
+    ></div>
   );
 };
