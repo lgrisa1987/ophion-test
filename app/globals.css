@@ -2,11 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  @apply box-border m-0 antialiased text-pretty;
+:root {
+  @apply [--main-height:3.9375rem] md:[--main-height:6.3125rem];
 }
+
+* {
+  @apply box-border m-0 antialiased text-pretty text-mine-shaft;
+}
+
+html {
+  @apply 3xl:text-[110%] 4xl:text-[150%];
+}
+
 html,
-body,
-main {
+body {
   @apply h-full;
+}
+@layer utilities {
+  .layout-container {
+    @apply w-[min(90%,72.375rem)] mx-auto;
+  }
 }

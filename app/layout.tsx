@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
+import { Drawer, Nav } from './components';
 
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['400', '700'],
   style: ['normal'],
+  display: 'block',
 });
 
 export const metadata: Metadata = {
@@ -20,7 +22,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className}>
+        <Drawer />
+        <Nav />
+        {children}
+      </body>
     </html>
   );
 }
