@@ -24,11 +24,14 @@ const lines = [
 ];
 
 export const HamMenu = () => {
-  const { isDrawerOpen, setIsDrawerOpen } = useAppContextProvider();
+  const { isDrawerOpen, setIsDrawerOpen, setIsDrawerOpenFirstTime } =
+    useAppContextProvider();
   return (
     <button
-      className='w-[2.25rem]'
-      onClick={() => setIsDrawerOpen(!isDrawerOpen)}
+      className='w-[2.25rem] group'
+      onClick={() => {
+        setIsDrawerOpen(!isDrawerOpen), setIsDrawerOpenFirstTime(true);
+      }}
       aria-label={`${isDrawerOpen ? 'Colapsar' : 'Desplegar'} menu`}
       aria-expanded={isDrawerOpen}
     >
@@ -36,18 +39,16 @@ export const HamMenu = () => {
         width='100'
         height='100'
         viewBox='0 0 100 100'
-        className='h-auto w-full'
+        className='h-auto w-full '
         aria-hidden={true}
       >
         {lines.map(({ id, d, activeState, inactiveState }) => {
-          const activeClasses = isDrawerOpen
-            ? activeState + ' md:stroke-white'
-            : inactiveState;
+          const activeClasses = isDrawerOpen ? activeState : inactiveState;
           return (
             <path
               key={id}
               className={`${cn(
-                'fill-none  stroke-mine-shaft stroke-[0.375rem] transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)]',
+                'fill-none  stroke-mine-shaft md:group-hover:stroke-white stroke-[0.375rem] transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)]',
                 activeClasses
               )}`}
               d={d}

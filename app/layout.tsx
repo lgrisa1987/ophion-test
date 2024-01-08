@@ -6,7 +6,7 @@ import AppContextProvider from './components/Context';
 
 const poppins = Poppins({
   subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: ['400', '700', '800'],
   style: ['normal'],
   display: 'block',
 });

@@ -13,7 +13,7 @@ export const Title = ({ title, styles, children }: TitleProps) => {
         <Fragment key={i}>
           <div className='inline-block overflow-hidden'>
             <span
-              className='inline-block translate-y-full'
+              className='inline-block translate-y-[200%]'
               dangerouslySetInnerHTML={{
                 __html: `${word}${i !== arr.length - 1 ? '&nbsp;' : ''}`,
               }}

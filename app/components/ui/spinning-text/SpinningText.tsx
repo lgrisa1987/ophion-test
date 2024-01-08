@@ -15,7 +15,7 @@ export const SpinningText = ({ text, styles, yPos }: SpinningTextProps) => {
 
   return (
     <div
-      className='w-full flex flex-col items-center justify-center h-full relative hover-none:pointer-events-none'
+      className='w-full flex flex-col items-center justify-center h-full relative'
       onMouseEnter={() => tl.current.play()}
       onMouseLeave={() => tl.current.reverse()}
       ref={containerRef}

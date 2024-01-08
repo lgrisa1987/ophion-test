@@ -14,23 +14,22 @@ type DispatchStateActionBoolan = Dispatch<SetStateAction<boolean>>;
 type AppContextType = {
   isDrawerOpen: boolean;
   setIsDrawerOpen: DispatchStateActionBoolan;
-  isInitialAnimationComplete: boolean;
-  setIsInitialAnimationComlete: DispatchStateActionBoolan;
+  isDrawerOpenFirstTime: boolean;
+  setIsDrawerOpenFirstTime: DispatchStateActionBoolan;
 };
 
 const AppContext = createContext<AppContextType | null>(null);
 
 const AppContextProvider = ({ children }: { children: ReactNode }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isInitialAnimationComplete, setIsInitialAnimationComlete] =
-    useState(false);
+  const [isDrawerOpenFirstTime, setIsDrawerOpenFirstTime] = useState(false);
   return (
     <AppContext.Provider
       value={{
         isDrawerOpen,
         setIsDrawerOpen,
-        isInitialAnimationComplete,
-        setIsInitialAnimationComlete,
+        isDrawerOpenFirstTime,
+        setIsDrawerOpenFirstTime,
       }}
     >
       {children}

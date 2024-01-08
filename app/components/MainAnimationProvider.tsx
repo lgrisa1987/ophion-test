@@ -16,38 +16,40 @@ const mediaQueries = {
 export const MainAnimationProvider = ({
   children,
 }: MainAnimationProviderProps) => {
-  const {
-    isDrawerOpen,
-    isInitialAnimationComplete,
-    setIsInitialAnimationComlete,
-  } = useAppContextProvider();
+  const { isDrawerOpen, isDrawerOpenFirstTime } = useAppContextProvider();
   const mainContainerRef = useRef(null);
   const tl = useRef<gsap.core.Timeline>(null!);
+  const tlDrawer = useRef<gsap.core.Timeline>(null!);
 
   useGSAP(
     () => {
-      tl.current = gsap.timeline({
-        paused: true,
-        onComplete: (timeline) => {
-          console.log(timeline);
-        },
-        onReverseComplete: (tl) => console.log(tl),
-      });
+      gsap.to('#nav', { autoAlpha: 1, delay: 1 });
       gsap.matchMedia(mainContainerRef).add(mediaQueries, (context) => {
-        tl.current.to(
-          '#drawer',
-          {
-            x: context.conditions?.isDesktop ? '60%' : '100%',
-            duration: 1,
-            ease: 'expo',
-          },
-          0
-        );
+        gsap.to('#greenOverlay', {
+          x: context.conditions?.isDesktop ? '60%' : '100%',
+          duration: context.isReverted ? 0 : 1,
+          ease: 'expo.inOut',
+        });
       });
-      tl.current
+    },
+    {
+      scope: mainContainerRef,
+    }
+  );
+
+  useGSAP(
+    () => {
+      tl.current = gsap
+        .timeline()
+        .set('#mainSection', { zIndex: 1 })
         .to(
           '#title span',
-          { y: 0, duration: 1, stagger: 0.1, ease: 'power4.inOut' },
+          {
+            y: 0,
+            duration: 1,
+            stagger: 0.1,
+            ease: 'power4.inOut',
+          },
           0
         )
         .to(
@@ -65,7 +67,6 @@ export const MainAnimationProvider = ({
           { autoAlpha: 1, duration: 0.5, stagger: 0.1, ease: 'power4.inOut' },
           0.9
         )
-        .set('#drawer', { zIndex: 0 }, 0.3)
         .to(
           '#imgContainer',
           {
@@ -90,9 +91,35 @@ export const MainAnimationProvider = ({
     }
   );
 
+  useGSAP(
+    () => {
+      gsap.set('#drawer', { x: '100%' });
+      tlDrawer.current = gsap
+        .timeline({
+          paused: true,
+        })
+        .to('#drawer', { x: 0, ease: 'expo.out', duration: 1.5 })
+        .to(
+          '.list-item > div',
+          { y: 0, stagger: 0.1, autoAlpha: 1, ease: 'expo.out' },
+          1
+        );
+    },
+    {
+      scope: mainContainerRef,
+    }
+  );
+
   useGSAP(() => {
-    tl.current[isDrawerOpen ? 'reverse' : 'play']();
-  }, [isDrawerOpen]);
+    if (isDrawerOpenFirstTime) {
+      isDrawerOpen
+        ? gsap.delayedCall(1.3, () => tlDrawer.current.play())
+        : tlDrawer.current.reverse();
+      !isDrawerOpen
+        ? gsap.delayedCall(0.5, () => tl.current.play())
+        : tl.current.reverse();
+    }
+  }, [isDrawerOpenFirstTime, isDrawerOpen]);
 
   return (
     <div className='h-full' ref={mainContainerRef}>
